@@ -70,3 +70,17 @@ class Vaga:
 
     def apresentar(self) -> str:
         return f"{self.titulo} na {self.empresa.nome} (Total: {self.qtd} vagas)"
+    
+# ── 6. Listas em Memória ──
+estudantes = []
+empresas = []
+vagas = []
+
+# ── FUNÇÃO DE VISUALIZAÇÃO (Polimorfismo / Duck Typing) ──
+def exibir_secao(titulo: str, lista_objetos: list):
+    print(f"\n{titulo} ({len(lista_objetos)}):")
+    if not lista_objetos:
+        print("   ↳ Nenhum registro no momento.")
+    else:
+        for item in lista_objetos:
+            print("   ↳ " + item.apresentar())
