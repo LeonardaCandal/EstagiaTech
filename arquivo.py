@@ -84,3 +84,45 @@ def exibir_secao(titulo: str, lista_objetos: list):
     else:
         for item in lista_objetos:
             print("   ↳ " + item.apresentar())
+
+
+# ── 7. Sistema Principal (CLI) ──
+def main():
+    while True:
+        print("\n" + "="*35)
+        print("MENU ESTAGIATECH")
+        print("="*35)
+        print("1. Cadastrar Estudante de TI")
+        print("2. Cadastrar Empresa")
+        print("3. Criar Vaga")
+        print("4. Realizar Candidatura")
+        print("5. Dashboard (Visão Geral)")
+        print("0. Sair")
+
+        opcao = input("\nEscolha uma opção: ")
+
+        try:
+            match opcao:
+                case "1":
+                    nome = input("Nome: ")
+                    idade = int(input("Idade: "))
+                    if idade < 18: raise IdadeMinimaErro("É necessário ter 18+ para estagiar.")
+                    email = input("Email: ")
+                    github = input("Usuário do GitHub: ")
+                    
+                    novo_estudante = EstudanteTI(nome, idade, Contato(email, ""), "Sistemas de Informação", github)
+                    estudantes.append(novo_estudante)
+                    print("Estudante cadastrado!")
+                    
+        except ValueError:
+            print("Erro: Digite um número inteiro onde for exigido (Idade ou Quantidade).")
+        except EstagiaTechErro as e:
+            print(f"Regra de Negócio: {e}")
+        else:
+            if opcao not in ("0", "_"):
+                print("✔ Operação realizada com sucesso.")
+        finally:
+            print("-" * 35)
+
+if __name__ == "__main__":
+    main()
