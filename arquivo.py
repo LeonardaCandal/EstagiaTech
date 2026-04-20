@@ -162,6 +162,22 @@ def main():
 
                     estudante_atual.vagas_candidatadas.append(vaga_alvo)
                     print(f"\n{vaga_alvo.empresa.receber_candidatura(estudante_atual.nome, vaga_alvo.titulo)}")
+                case "5":
+                    print("\n" + "="*35)
+                    print("VISÃO GERAL DO SISTEMA")
+                    print("="*35)
+                    
+                    exibir_secao("ESTUDANTES DE TI", estudantes)
+                    exibir_secao("EMPRESAS PARCEIRAS", empresas)
+                    exibir_secao("VAGAS ABERTAS", vagas)
+                    
+                    print("\n" + "="*35)
+
+                case "0":
+                    print("Encerrando o EstagiaTech... Até logo!")
+                    break
+                case _:
+                    print("Opção inválida.")
                     
         except ValueError:
             print("Erro: Digite um número inteiro onde for exigido (Idade ou Quantidade).")
