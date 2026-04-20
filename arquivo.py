@@ -113,6 +113,27 @@ def main():
                     novo_estudante = EstudanteTI(nome, idade, Contato(email, ""), "Sistemas de Informação", github)
                     estudantes.append(novo_estudante)
                     print("Estudante cadastrado!")
+                case "2":
+                    nome = input("Nome da Empresa: ")
+                    cidade = input("Cidade Sede: ")
+                    
+                    nova_empresa = Empresa(nome, 10, Contato("", ""), "Tecnologia", Endereco(cidade, "ES"))
+                    empresas.append(nova_empresa)
+                    print("Empresa cadastrada!")
+
+                case "3":
+                    if not empresas: raise EstagiaTechErro("Cadastre uma empresa primeiro!")
+                    
+                    print("Empresas disponíveis:", [e.nome for e in empresas])
+                    nome_emp = input("Digite o nome da empresa ofertante: ")
+                    
+                    busca_emp = [e for e in empresas if e.nome.lower() == nome_emp.lower()]
+                    if not busca_emp: raise EstagiaTechErro("Empresa não encontrada.")
+
+                    titulo = input("Título da vaga (ex: Dev Python): ")
+                    qtd = int(input("Quantidade total de vagas: "))
+                    vagas.append(Vaga(titulo, busca_emp[0], qtd))
+                    print("Vaga criada!")
                     
         except ValueError:
             print("Erro: Digite um número inteiro onde for exigido (Idade ou Quantidade).")
