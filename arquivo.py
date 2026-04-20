@@ -134,6 +134,34 @@ def main():
                     qtd = int(input("Quantidade total de vagas: "))
                     vagas.append(Vaga(titulo, busca_emp[0], qtd))
                     print("Vaga criada!")
+                case "4":
+                    if not estudantes or not vagas: 
+                        raise EstagiaTechErro("Cadastre pelo menos um estudante e uma vaga primeiro.")
+                    
+                    print("Estudantes disponíveis:", [e.nome for e in estudantes])
+                    nome_est = input("Digite o nome do estudante que vai se candidatar: ")
+                    
+                    busca_est = [e for e in estudantes if e.nome.lower() == nome_est.lower()]
+                    if not busca_est: raise EstagiaTechErro("Estudante não encontrado.")
+                    
+                    estudante_atual = busca_est[0] 
+
+                    print("\nVagas Disponíveis:")
+                    for v in vagas:
+                        print(f"- {v.titulo} na {v.empresa.nome}")
+                        
+                    titulo_vaga = input(f"\nPara qual vaga {estudante_atual.nome} deseja se candidatar? ")
+                    
+                    busca_vaga = [v for v in vagas if v.titulo.lower() == titulo_vaga.lower()]
+                    if not busca_vaga: raise EstagiaTechErro("Vaga não encontrada.")
+
+                    vaga_alvo = busca_vaga[0]
+
+                    if vaga_alvo in estudante_atual.vagas_candidatadas:
+                        raise CandidaturaDuplicadaErro("O estudante já se candidatou a esta vaga!")
+
+                    estudante_atual.vagas_candidatadas.append(vaga_alvo)
+                    print(f"\n{vaga_alvo.empresa.receber_candidatura(estudante_atual.nome, vaga_alvo.titulo)}")
                     
         except ValueError:
             print("Erro: Digite um número inteiro onde for exigido (Idade ou Quantidade).")
