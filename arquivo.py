@@ -46,3 +46,27 @@ class EstudanteTI(Estudante):
             vagas = ", ".join([v.titulo for v in self.vagas_candidatadas])
             return f"{base} \n      ↳ Concorrendo a: {vagas}"
         return base
+    
+# ── 4. Herança Múltipla ──
+class Empregadora:
+    def receber_candidatura(self, nome_candidato: str, titulo_vaga: str) -> str:
+        return f"O candidato {nome_candidato} entrou no processo seletivo para {titulo_vaga}!"
+
+class Empresa(Pessoa, Empregadora):
+    def __init__(self, nome: str, idade: int, contato: Contato, setor: str, endereco: Endereco):
+        Pessoa.__init__(self, nome, idade, contato)
+        self.setor = setor
+        self.endereco = endereco
+
+    def apresentar(self) -> str:
+        return f"{self.nome} | Setor: {self.setor} | Sede: {self.endereco.cidade}"
+
+# ── 5. Classe Vaga ──
+class Vaga:
+    def __init__(self, titulo: str, empresa: Empresa, qtd: int):
+        self.titulo = titulo
+        self.empresa = empresa
+        self.qtd = qtd
+
+    def apresentar(self) -> str:
+        return f"{self.titulo} na {self.empresa.nome} (Total: {self.qtd} vagas)"
