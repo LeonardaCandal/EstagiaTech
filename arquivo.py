@@ -102,6 +102,7 @@ def main():
         opcao = input("\nEscolha uma opção: ")
 
         try:
+            sucesso = False
             match opcao:
                 case "1":
                     nome = input("Nome: ")
@@ -113,6 +114,7 @@ def main():
                     novo_estudante = EstudanteTI(nome, idade, Contato(email, ""), "Sistemas de Informação", github)
                     estudantes.append(novo_estudante)
                     print("Estudante cadastrado!")
+                    sucesso = True
                 case "2":
                     nome = input("Nome da Empresa: ")
                     cidade = input("Cidade Sede: ")
@@ -120,6 +122,7 @@ def main():
                     nova_empresa = Empresa(nome, 10, Contato("", ""), "Tecnologia", Endereco(cidade, "ES"))
                     empresas.append(nova_empresa)
                     print("Empresa cadastrada!")
+                    sucesso = True
 
                 case "3":
                     if not empresas: raise EstagiaTechErro("Cadastre uma empresa primeiro!")
@@ -134,6 +137,7 @@ def main():
                     qtd = int(input("Quantidade total de vagas: "))
                     vagas.append(Vaga(titulo, busca_emp[0], qtd))
                     print("Vaga criada!")
+                    sucesso = True
                 case "4":
                     if not estudantes or not vagas: 
                         raise EstagiaTechErro("Cadastre pelo menos um estudante e uma vaga primeiro.")
@@ -162,6 +166,7 @@ def main():
 
                     estudante_atual.vagas_candidatadas.append(vaga_alvo)
                     print(f"\n{vaga_alvo.empresa.receber_candidatura(estudante_atual.nome, vaga_alvo.titulo)}")
+                    sucesso = True
                 case "5":
                     print("\n" + "="*35)
                     print("VISÃO GERAL DO SISTEMA")
@@ -172,6 +177,7 @@ def main():
                     exibir_secao("VAGAS ABERTAS", vagas)
                     
                     print("\n" + "="*35)
+                    sucesso = True
 
                 case "0":
                     print("Encerrando o EstagiaTech... Até logo!")
@@ -184,7 +190,7 @@ def main():
         except EstagiaTechErro as e:
             print(f"Regra de Negócio: {e}")
         else:
-            if opcao not in ("0", "_"):
+            if sucesso:
                 print("✔ Operação realizada com sucesso.")
         finally:
             print("-" * 35)
